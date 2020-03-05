@@ -3,6 +3,7 @@
     <el-header class="home-header">
       <span class="header-text">后台管理系统</span>
       <el-button class="exit-button" type="info" @click="exitClick">退出</el-button>
+      <div id="network-loading"></div>
     </el-header>
     <el-container>
       <!--侧边-->
@@ -136,6 +137,13 @@ export default {
     }
     .exit-button {
       margin-top: 10px;
+    }
+    #network-loading {
+      width: 60px;
+      height: 60px;
+      position: fixed;
+      right: 10px;
+      top: 0;
     }
   }
   .home-main {
