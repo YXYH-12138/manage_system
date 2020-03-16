@@ -21,6 +21,7 @@ export function dateTimeFormat(date, format) {
   return format
 }
 
+//对象深拷贝
 export function deepCopy(copyObj, targetObj = {}) {
   Array.isArray(copyObj) && (targetObj = [])
   for (const [key, value] of Object.entries(copyObj)) {

@@ -74,6 +74,14 @@ export function deleteGoodsRequest(id) {
     method: "delete"
   })
 }
+//添加商品
+export function addGoodsRequest(data) {
+  return request({
+    url: `goods`,
+    method: "post",
+    data
+  })
+}
 //#endregion
 
 //#region  分类参数
