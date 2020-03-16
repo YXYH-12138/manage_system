@@ -24,7 +24,6 @@
                   @close="handleTagClose(rights1.id, roles.row)"
                   closable
                   class="tag-roles"
-                  disable-transitions
                 >{{rights1.authName}}</el-tag>
                 <i class="el-icon-caret-right"></i>
               </el-col>
@@ -42,7 +41,6 @@
                       closable
                       class="tag-roles"
                       type="success"
-                      disable-transitions
                     >{{rights2.authName}}</el-tag>
                     <i class="el-icon-caret-right"></i>
                   </el-col>
@@ -53,7 +51,6 @@
                       closable
                       class="tag-roles"
                       type="warning"
-                      disable-transitions
                       v-for="rights3 in rights2.children"
                       :key="rights3.id"
                     >{{rights3.authName}}</el-tag>
@@ -116,7 +113,6 @@
       :before-close="beforeCloseRightsDialog"
       :visible.sync="dialogAllotVisible"
     >
-      <!-- :default-checked-keys="keys" -->
       <el-tree
         :data="allRightsList"
         show-checkbox
@@ -125,7 +121,7 @@
         ref="tree"
         highlight-current
         :props="defaultProps"
-        @check="handleCheck"
+        :default-checked-keys="defaultKeys"
       ></el-tree>
       <div slot="footer">
         <el-button @click="dialogAllotVisible = false">取 消</el-button>
@@ -162,6 +158,8 @@ import {
   tag,
   tree
 } from "element-ui";
+import { TreeData } from "common/utils";
+
 export default {
   name: "roles",
   components: {
@@ -186,14 +184,14 @@ export default {
       allRolesData: [],
       //所有的权限
       allRightsList: [],
-      //角色默认的权限id数组
-      defaultKeys: null,
       dialogMsg: "",
       dialogAddVisible: false,
       dialogAllotVisible: false,
       //保存当前选择的角色信息
       currentRole: null,
-      tagId: 0,
+      //默认选中的节点
+      defaultKeys: [],
+      treeData: new TreeData(),
       rolesData: {
         roleName: "",
         roleDesc: ""
@@ -281,32 +279,18 @@ export default {
     //分配角色权限
     handleRightsAllot(currentRole) {
       this.currentRole = currentRole;
+      this.treeData.treeArr = currentRole.children;
+      this.defaultKeys = [];
+      this.defaultKeys.push(...this.treeData.getSomeKeys("id", true));
       this.dialogAllotVisible = true;
-      this.defaultKeys = this.defaultCheckedKeys(currentRole.children);
-      this.$nextTick(() => {
-        //修改选择的节点
-        this.$refs.tree.setCheckedKeys(this.defaultKeys);
-      });
-    },
-    //权限节点选中状态发生变化
-    handleCheck(currentNode, checkObj) {
-      // console.log(this.getcheckedIdList());
-      // let addRights = this.getcheckedIdList().filter(
-      //   item => !this.defaultKeys.includes(item)
-      // );
-      // console.log(addRights);
     },
     beforeCloseRightsDialog(done) {
       this.$refs.tree.setCheckedKeys([]);
       done();
-      // this.keys.splice(0, this.keys.length);
-      // this.$tree.setCheckedKeys(keys => {
-      //   console.log(keys);
-      // });
     },
     //确定修改权限的点击
     handleAllotConfirm() {
-      let rightsStr = this.getcheckedIdList().join(",");
+      let rightsStr = this.checkedIdList.join(",");
       editRoleRights(this.currentRole.id, rightsStr)
         .then(({ meta }) => {
           if (meta.status === 200) {
@@ -321,26 +305,6 @@ export default {
           this.$message.error("更新失败");
         });
     },
-    //返回包含当前选择角色的最后一层权限的id 的数组
-    defaultCheckedKeys(arr) {
-      return arr.reduce((acc, cur) => {
-        return acc.concat(
-          cur.children ? this.defaultCheckedKeys(cur.children) : cur.id
-        );
-      }, []);
-    },
-    //获取当前选中的所有权限ID数组
-    getcheckedIdList() {
-      let checkedIdList = this.$refs.tree.getCheckedKeys().join(",");
-      if (checkedIdList) {
-        checkedIdList += "," + this.$refs.tree.getCheckedNodes(true)[0].pid;
-        return [...new Set(checkedIdList.split(","))].map(item =>
-          parseInt(item)
-        );
-      } else {
-        return [];
-      }
-    },
     handleTagClose(tagId, currentRole) {
       this.$confirm("是否删除该权限?", "提示", {
         confirmButtonText: "确定",
@@ -348,25 +312,30 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.tagId = tagId;
           let rolesIndex = this.allRolesData.indexOf(currentRole);
           deleteRoleRights(currentRole.id, tagId)
-            // .then(({ meta }) => {
-            //   meta.status !== 200 && this.$message.error("删除权限失败");
-            // })
+            .then(({ data, meta }) => {
+              if (meta.status !== 200) {
+                return this.$message.error("删除权限失败");
+              }
+              // meta.status !== 200 && this.$message.error("删除权限失败");
+              // this.treeData.treeArr = this.allRolesData[rolesIndex].children;
+              // this.treeData.deleteTreeNode("id", tagId);
+              // console.log(res);
+              currentRole.children = data;
+            })
             .catch(() => this.$message.error("删除权限失败"));
-          this.deleteRights(this.allRolesData[rolesIndex].children);
         })
         .catch(() => {});
-    },
-    deleteRights(arr) {
-      arr.find((item, index, thisArr) => {
-        if (item.id === this.tagId) {
-          thisArr.splice(index, 1);
-          return true;
-        }
-        item.children && this.deleteRights(item.children);
-      });
+    }
+  },
+  computed: {
+    //获取当前选中的所有权限ID数组
+    checkedIdList() {
+      return [
+        ...this.$refs.tree.getCheckedKeys(),
+        ...this.$refs.tree.getHalfCheckedKeys()
+      ];
     }
   },
   created() {
@@ -381,9 +350,15 @@ export default {
 <style lang="less" scoped>
 .row1-role {
   border-top: 1px solid rgb(238, 238, 238);
+  display: flex;
+  align-items: center;
 }
 .row1-role:last-child {
   border-bottom: 1px solid rgb(238, 238, 238);
+}
+.row2-role {
+  display: flex;
+  align-items: center;
 }
 .row2-role + .row2-role {
   border-top: 1px solid rgb(238, 238, 238);

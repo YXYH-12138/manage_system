@@ -12,6 +12,10 @@ import {
 import "assets/css/base.css"
 import "assets/fonts/iconfont.css"
 
+import ZkTable from 'vue-table-with-tree-grid'
+
+Vue.component("tree-table", ZkTable)
+
 Vue.config.productionTip = false
 
 Vue.prototype.$message = Message

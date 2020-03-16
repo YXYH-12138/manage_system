@@ -7,6 +7,10 @@ const Home = () => import("views/home/Home")
 const Users = () => import("views/home/childComps/users/Users")
 const RoleList = () => import("views/home/childComps/rights/RoleList")
 const RightsList = () => import("views/home/childComps/rights/RightsList")
+const GoodsList = () => import("views/home/childComps/goods/GoodsList")
+const AddGoods = () => import("views/home/childComps/goods/AddGoods")
+const GoodsCategory = () => import("views/home/childComps/goods/GoodsCategory")
+const CategoryParams = () => import("views/home/childComps/goods/CategoryParams")
 
 Vue.use(VueRouter)
 
@@ -20,15 +24,31 @@ const routes = [{
   path: "/home",
   component: Home,
   children: [{
-    path: "users",
-    component: Users
-  }, {
-    path: "roles",
-    component: RoleList
-  }, {
-    path: "rights",
-    component: RightsList
-  }]
+      path: "users",
+      component: Users
+    }, {
+      path: "roles",
+      component: RoleList
+    }, {
+      path: "rights",
+      component: RightsList
+    }, {
+      path: "goods",
+      component: GoodsList,
+      // children: []
+    }, {
+      path: "addgoods",
+      component: AddGoods
+    }, {
+      path: "categories",
+      component: GoodsCategory
+    },
+    {
+      path: "params",
+      component: CategoryParams
+
+    }
+  ]
 }]
 
 const router = new VueRouter({

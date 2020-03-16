@@ -24,7 +24,7 @@
         <el-table-column prop="email" label="邮箱" width="auto"></el-table-column>
         <el-table-column prop="mobile" label="电话" width="auto"></el-table-column>
         <el-table-column prop="role_name" label="角色" width="auto"></el-table-column>
-        <el-table-column label="状态" width="auto">
+        <el-table-column label="状态" width="70">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.mg_state" @change="userChangeState($event,scope.row.id)"></el-switch>
           </template>
@@ -84,7 +84,7 @@
           <el-input v-model.number="userData.mobile" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer">
         <el-button @click="dialogAddVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleAddConfirm('addForm')">确 定</el-button>
       </div>
@@ -106,7 +106,7 @@
           <el-input v-model.number="editData.mobile" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer">
         <el-button @click="dialogEditVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleEditConfirm('editUserForm')">确 定</el-button>
       </div>
@@ -135,7 +135,7 @@
           </el-select>
         </el-col>
       </el-row>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer">
         <el-button @click="dialogUserRoleVisible = false">取 消</el-button>
         <el-button type="primary" @click="handleUserRoleConfirm">确 定</el-button>
       </div>
@@ -334,9 +334,9 @@ export default {
     handleEditUser(id) {
       queryUserInfo(id).then(({ data }) => {
         this.editData = data;
+        this.dialogEditVisible = true;
       });
       // .finally(() => {
-      this.dialogEditVisible = true;
       // });
     },
     handleEditConfirm(formName) {

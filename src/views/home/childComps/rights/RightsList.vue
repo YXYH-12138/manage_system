@@ -13,10 +13,9 @@
         <el-table-column prop="path" label="路径" width="auto"></el-table-column>
         <el-table-column prop="level" label="权限等级" width="auto">
           <template slot-scope="scope">
-            <el-tag
-              :type="levelTag(scope.row.level).type"
-              disable-transitions
-            >{{levelTag(scope.row.level).text}}</el-tag>
+            <el-tag v-if="scope.row.level==='0'" disable-transitions>一级</el-tag>
+            <el-tag v-else-if="scope.row.level==='1'" type="success" disable-transitions>二级</el-tag>
+            <el-tag v-else type="warning" disable-transitions>三级</el-tag>
           </template>
         </el-table-column>
       </el-table>
@@ -49,28 +48,6 @@ export default {
     return {
       rightsData: []
     };
-  },
-  computed: {
-    levelTag() {
-      return function(level) {
-        let levelObj = {};
-        switch (level) {
-          case "0":
-            levelObj.type = "";
-            levelObj.text = "一级";
-            break;
-          case "1":
-            levelObj.type = "success";
-            levelObj.text = "二级";
-            break;
-          case "2":
-            levelObj.type = "warning";
-            levelObj.text = "三级";
-            break;
-        }
-        return levelObj;
-      };
-    }
   },
   created() {
     getRightsList().then(({ data }) => {

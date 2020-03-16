@@ -62,3 +62,7 @@ a {
 .right {
   float: right;
 }
+
+.el-cascader-menu {
+  height: 200px;
+}

@@ -77,7 +77,7 @@ export function editRoleRights(roleId, rids) {
 //删除角色指定权限
 export function deleteRoleRights(roleId, rightId) {
   return request({
-    url: `roles/${roleId}/rights${rightId}`,
+    url: `roles/${roleId}/rights/${rightId}`,
     method: "delete",
   })
 }
