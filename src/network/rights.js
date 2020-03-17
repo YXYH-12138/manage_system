@@ -1,7 +1,6 @@
 import {
   request
 } from "./request"
-import Qs from 'qs'
 
 // 权限列表
 export function getRightsList(type = 'list') {
@@ -25,14 +24,13 @@ export function addRoleRequest({
   roleName,
   roleDesc
 }) {
-  let data = Qs.stringify({
-    roleName,
-    roleDesc
-  })
   return request({
     url: "roles",
     method: "post",
-    data
+    data: {
+      roleName,
+      roleDesc
+    }
   })
 }
 //根据 ID 查询角色
@@ -65,13 +63,12 @@ export function deleteRoleRequest(id) {
 }
 //角色授权
 export function editRoleRights(roleId, rids) {
-  let data = Qs.stringify({
-    rids
-  })
   return request({
     url: `roles/${roleId}/rights`,
     method: "post",
-    data
+    data: {
+      rids
+    }
   })
 }
 //删除角色指定权限

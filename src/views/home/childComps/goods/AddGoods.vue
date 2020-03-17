@@ -105,34 +105,6 @@
 
 <script>
 import {
-  Breadcrumb,
-  upload,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  TableColumn,
-  Switch,
-  tooltip,
-  pagination,
-  dialog,
-  Form,
-  FormItem,
-  select,
-  option,
-  alert,
-  steps,
-  step,
-  tabs,
-  TabPane,
-  CheckboxGroup,
-  cascader
-} from "element-ui";
-
-import {
   getGoodsCategory,
   getCategoryParams,
   addGoodsRequest
@@ -142,33 +114,6 @@ import { deepCopy } from "common/utils";
 
 export default {
   name: "AddGoods",
-  components: {
-    [TabPane.name]: TabPane,
-    [upload.name]: upload,
-    [CheckboxGroup.name]: CheckboxGroup,
-    [tabs.name]: tabs,
-    [step.name]: step,
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [Row.name]: Row,
-    [Col.name]: Col,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Switch.name]: Switch,
-    [tooltip.name]: tooltip,
-    [pagination.name]: pagination,
-    [dialog.name]: dialog,
-    [Form.name]: Form,
-    [FormItem.name]: FormItem,
-    [select.name]: select,
-    [option.name]: option,
-    [alert.name]: alert,
-    [steps.name]: steps,
-    [cascader.name]: cascader
-  },
   data() {
     return {
       activeIndex: "0",
@@ -337,20 +282,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box-card {
+.el-steps,
+.el-form {
   margin-top: 15px;
-  .el-steps,
-  .el-form {
-    margin-top: 15px;
-  }
-  .el-checkbox {
-    margin: 0 10px 0 0 !important;
-  }
-  .previewImg {
-    width: 100%;
-  }
-  .btnAdd {
-    margin-top: 15px;
-  }
+}
+.el-checkbox {
+  margin: 0 10px 0 0 !important;
+}
+.previewImg {
+  width: 100%;
+}
+.btnAdd {
+  margin-top: 15px;
 }
 </style>

@@ -28,18 +28,10 @@
 </template>
 
 <script>
-import { Form, FormItem, Input, Button } from "element-ui";
-
 import { loginRequest } from "network/login";
 
 export default {
   name: "login",
-  components: {
-    [Form.name]: Form,
-    [FormItem.name]: FormItem,
-    [Input.name]: Input,
-    [Button.name]: Button
-  },
   data() {
     return {
       login: {

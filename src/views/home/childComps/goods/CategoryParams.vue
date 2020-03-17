@@ -147,7 +147,7 @@
     <el-dialog @close="closeDialog('addForm')" :title="dialogText" :visible.sync="dialogAddVisible">
       <el-form :model="paramsData" :rules="addRules" ref="addForm">
         <el-form-item :label="dialogText.slice(2)" label-width="80px" prop="paramsName">
-          <el-input v-model.trim="paramsData.paramsName" autocomplete="off"></el-input>
+          <el-input v-focus v-model.trim="paramsData.paramsName" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -176,30 +176,6 @@
 
 <script>
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  TableColumn,
-  Switch,
-  pagination,
-  dialog,
-  form,
-  FormItem,
-  select,
-  option,
-  alert,
-  cascader,
-  tabs,
-  TabPane,
-  Tag
-} from "element-ui";
-
-import {
   getGoodsCategory,
   getCategoryParams,
   editParams,
@@ -210,29 +186,6 @@ import {
 
 export default {
   name: "CategoryParams",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [Tag.name]: Tag,
-    [TabPane.name]: TabPane,
-    [tabs.name]: tabs,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [Row.name]: Row,
-    [Col.name]: Col,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Switch.name]: Switch,
-    [pagination.name]: pagination,
-    [dialog.name]: dialog,
-    [form.name]: form,
-    [FormItem.name]: FormItem,
-    [select.name]: select,
-    [option.name]: option,
-    [alert.name]: alert,
-    [cascader.name]: cascader
-  },
   data() {
     return {
       optionsCategory: [],
@@ -423,28 +376,25 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box-card {
+.el-row {
   margin-top: 15px;
-  .el-row {
-    margin-top: 15px;
-  }
-  .el-tag {
-    margin-right: 10px;
-  }
-  .el-cascader-menu {
-    height: 200px;
-  }
-  .button-new-tag {
-    margin-left: 10px;
-    height: 32px;
-    line-height: 30px;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .input-new-tag {
-    width: 90px;
-    margin-left: 10px;
-    vertical-align: bottom;
-  }
+}
+.el-tag {
+  margin-right: 10px;
+}
+.el-cascader-menu {
+  height: 200px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 </style>

@@ -142,42 +142,10 @@ import {
   editRoleRights,
   deleteRoleRights
 } from "network/rights";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  TableColumn,
-  dialog,
-  form,
-  FormItem,
-  tag,
-  tree
-} from "element-ui";
 import { TreeData } from "common/utils";
 
 export default {
   name: "roles",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [Row.name]: Row,
-    [Col.name]: Col,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [dialog.name]: dialog,
-    [form.name]: form,
-    [FormItem.name]: FormItem,
-    [tag.name]: tag,
-    [tree.name]: tree
-  },
   data() {
     return {
       //所有的角色信息

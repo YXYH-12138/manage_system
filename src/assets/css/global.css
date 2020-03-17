@@ -1,0 +1,16 @@
+.el-cascader-menu {
+  height: 200px;
+}
+
+.quill-editor,
+.ql-container {
+  min-height: 300px;
+}
+
+.el-card {
+  margin-top: 15px;
+}
+
+.el-pagination {
+  margin-top: 15px;
+}

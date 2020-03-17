@@ -1,3 +1,5 @@
+@import "./global.css";
+
 body,
 p,
 h1,
@@ -61,13 +63,4 @@ a {
 
 .right {
   float: right;
-}
-
-.el-cascader-menu {
-  height: 200px;
-}
-
-.quill-editor,
-.ql-container {
-  min-height: 300px;
 }

@@ -153,47 +153,9 @@ import {
   editUserInfo,
   allotUserRole
 } from "network/users";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  TableColumn,
-  Switch,
-  tooltip,
-  pagination,
-  dialog,
-  form,
-  FormItem,
-  select,
-  option
-} from "element-ui";
 
 export default {
   name: "Users",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [Row.name]: Row,
-    [Col.name]: Col,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Switch.name]: Switch,
-    [tooltip.name]: tooltip,
-    [pagination.name]: pagination,
-    [dialog.name]: dialog,
-    [form.name]: form,
-    [FormItem.name]: FormItem,
-    [select.name]: select,
-    [option.name]: option
-  },
   data() {
     return {
       users: [],
@@ -396,12 +358,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box-card {
-  margin-top: 15px;
-  .el-pagination {
-    margin-top: 15px;
-  }
-}
 .row-role + .row-role {
   margin-top: 10px;
   .col-newrole {

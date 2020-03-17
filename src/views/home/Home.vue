@@ -51,16 +51,6 @@
 </template>
 
 <script>
-import {
-  Container,
-  Header,
-  Main,
-  Aside,
-  Button,
-  Menu,
-  Submenu,
-  MenuItem
-} from "element-ui";
 import { menusRequest } from "network/home";
 
 export default {
@@ -79,16 +69,6 @@ export default {
       ]
     };
   },
-  components: {
-    [Container.name]: Container,
-    [Header.name]: Header,
-    [Aside.name]: Aside,
-    [Main.name]: Main,
-    [Button.name]: Button,
-    [Menu.name]: Menu,
-    [Submenu.name]: Submenu,
-    [MenuItem.name]: MenuItem
-  },
   methods: {
     exitClick() {
       sessionStorage.clear();
@@ -103,13 +83,6 @@ export default {
       //保存路径
       sessionStorage.setItem("activePath", index);
     }
-  },
-  computed: {
-    // routePath() {
-    //   return function(path) {
-    //     return this.$route.path.includes(path) ? this.$route.path : path;
-    //   };
-    // }
   },
   created() {
     menusRequest().then(({ data }) => {

@@ -25,25 +25,9 @@
 
 <script>
 import { getRightsList } from "network/rights";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Card,
-  Table,
-  TableColumn,
-  Tag
-} from "element-ui";
 
 export default {
   name: "RightsList",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Card.name]: Card,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Tag.name]: Tag
-  },
   data() {
     return {
       rightsData: []

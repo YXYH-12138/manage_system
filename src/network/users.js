@@ -22,16 +22,15 @@ export function addUserRequest({
   email,
   mobile
 }) {
-  let data = Qs.stringify({
-    'username': username,
-    'password': password,
-    'email': email,
-    'mobile': mobile
-  })
   return request({
     url: "/users",
     method: "post",
-    data
+    data: {
+      username,
+      password,
+      email,
+      mobile
+    }
   })
 }
 

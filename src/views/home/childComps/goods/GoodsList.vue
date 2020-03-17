@@ -61,50 +61,11 @@
 </template>
 
 <script>
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  Row,
-  Col,
-  Table,
-  TableColumn,
-  Switch,
-  tooltip,
-  pagination,
-  dialog,
-  form,
-  FormItem,
-  select,
-  option
-} from "element-ui";
-
 import { getGoodsList, deleteGoodsRequest } from "network/goods";
 import { dateTimeFormat } from "common/utils";
 
 export default {
   name: "GoodsList",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [Row.name]: Row,
-    [Col.name]: Col,
-    [Table.name]: Table,
-    [TableColumn.name]: TableColumn,
-    [Switch.name]: Switch,
-    [tooltip.name]: tooltip,
-    [pagination.name]: pagination,
-    [dialog.name]: dialog,
-    [form.name]: form,
-    [FormItem.name]: FormItem,
-    [select.name]: select,
-    [option.name]: option
-  },
   data() {
     return {
       searchGoods: "",
@@ -161,14 +122,11 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.box-card {
+<style scoped>
+.el-pagination {
   margin-top: 15px;
-  .el-pagination {
-    margin-top: 15px;
-  }
-  .el-table {
-    font-size: 12px;
-  }
+}
+.el-table {
+  font-size: 12px;
 }
 </style>

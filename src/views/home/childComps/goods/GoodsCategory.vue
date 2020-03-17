@@ -58,7 +58,7 @@
         :total="pageTotal"
         @current-change="handleCurrentChange"
       ></el-pagination>
-      <!-- 添加商品 -->
+      <!-- 添加分类 -->
       <el-dialog
         title="添加分类"
         @close="closeAddCategoryDialog"
@@ -105,20 +105,6 @@
 
 <script>
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Input,
-  Button,
-  Card,
-  pagination,
-  dialog,
-  form,
-  FormItem,
-  tag,
-  option,
-  cascader
-} from "element-ui";
-import {
   getGoodsCategory,
   addCategoryRequest,
   delCategoryRequest,
@@ -127,20 +113,6 @@ import {
 } from "network/goods";
 export default {
   name: "GoodsCategory",
-  components: {
-    [Breadcrumb.name]: Breadcrumb,
-    [BreadcrumbItem.name]: BreadcrumbItem,
-    [Input.name]: Input,
-    [Button.name]: Button,
-    [Card.name]: Card,
-    [pagination.name]: pagination,
-    [dialog.name]: dialog,
-    [form.name]: form,
-    [FormItem.name]: FormItem,
-    [tag.name]: tag,
-    [option.name]: option,
-    [cascader.name]: cascader
-  },
   data() {
     return {
       goodsCategory: [],
@@ -285,10 +257,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.box-card {
-  margin-top: 15px;
-  .el-pagination {
-    margin-top: 15px;
-  }
-}
 </style>

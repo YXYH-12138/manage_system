@@ -1,7 +1,6 @@
 import {
   request
 } from "./request"
-import Qs from 'qs'
 
 //#region  商品分类管理
 

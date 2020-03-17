@@ -1,5 +1,5 @@
-//时间格式化 yyyy-MM-dd HH-mm-ss
-export function dateTimeFormat(date, format) {
+//时间格式化 yyyy/MM/dd HH:mm:ss
+export function dateTimeFormat(date, format = 'yyyy/MM/dd HH:mm:ss') {
   date = new Date(date)
   let year = date.getFullYear().toString();
   if (/(y+)/.test(format)) {
