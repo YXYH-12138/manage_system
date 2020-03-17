@@ -12,6 +12,7 @@ const AddGoods = () => import("views/home/childComps/goods/AddGoods")
 const GoodsCategory = () => import("views/home/childComps/goods/GoodsCategory")
 const CategoryParams = () => import("views/home/childComps/goods/CategoryParams")
 const OrdersList = () => import("views/home/childComps/orders/OrdersList")
+const DataReports = () => import("views/home/childComps/report/DataReports")
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,9 @@ const routes = [{
   }, {
     path: "orders",
     component: OrdersList
+  }, {
+    path: "reports",
+    component: DataReports
   }]
 }]
 
