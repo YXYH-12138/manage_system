@@ -32,16 +32,16 @@ export function deepCopy(copyObj, targetObj = {}) {
 
 export class TreeData {
   //接受参数 ：树形数组，存储子节点的数组名字 默认为children
-  constructor(treeArr, concatenateName = 'children') {
+  constructor(treeArr, children = 'children') {
     this.treeArr = treeArr
-    this.concatenateName = concatenateName
+    this.children = children
   }
   /*
-   * 获得数组中的一些键值 结果为包含这些键值信息的数组
+   * 获得数组存贮的对象中的一个或多个键值 结果为包含这些键值信息的数组
    * keys：字符串 或者 数组  eg:getSomeKeys("id") getSomeKeys(['id', "authName", "pid"])
    * isLastNode：是否只获取最后一个树节点的数据 默认为false
    */
-  getSomeKeys(keys, isLastNode = false, arr = this.treeArr) {
+  getSomeDataByKeys(keys, isLastNode = false, arr = this.treeArr) {
     return arr.reduce((acc, cur) => {
       let o = ""
       if (Array.isArray(keys)) {
@@ -50,10 +50,10 @@ export class TreeData {
       } else {
         o = cur[keys]
       }
-      let cName = cur[this.concatenateName]
+      let cName = cur[this.children]
       return !isLastNode ? (cName ?
-          acc.concat(o, this.getSomeKeys(keys, isLastNode, cName)) : acc.concat(o)) :
-        acc.concat(cName ? this.getSomeKeys(keys, isLastNode, cName) : o)
+          acc.concat(o, this.getSomeDataByKeys(keys, isLastNode, cName)) : acc.concat(o)) :
+        acc.concat(cName ? this.getSomeDataByKeys(keys, isLastNode, cName) : o)
     }, [])
   }
 
@@ -62,7 +62,7 @@ export class TreeData {
       if (value[byKey] === byValue) {
         return value
       }
-      let cItme = value[this.concatenateName]
+      let cItme = value[this.children]
       if (cItme) {
         let result = this.findNodeData(byKey, byValue, cItme)
         if (result) return result
@@ -76,33 +76,47 @@ export class TreeData {
    * isDeleteParentNode : 是否当父节点没有子节点时将父节点也删除 默认删除
    */
   deleteTreeNode(byKey, byValue, isDeleteParentNode = true, arr = this.treeArr) {
-    for (const [key, value] of arr.entries()) {
-      if (value[byKey] === byValue) {
-        arr.splice(key, 1);
-        return value
+    return arr.reduce((acc, cur, index) => {
+      cur[byKey] === byValue && acc.push(...arr.splice(index, 1));
+      if (cur[this.children]) {
+        acc.push(...this.deleteTreeNode(byKey, byValue, isDeleteParentNode, cur[this.children]))
+        isDeleteParentNode && cur[this.children].length === 0 && acc.push(...arr.splice(index, 1));
       }
-      let cItme = value[this.concatenateName]
-      if (cItme) {
-        let result = this.deleteTreeNode(byKey, byValue, isDeleteParentNode, cItme)
-        if (result) {
-          isDeleteParentNode && value[this.concatenateName].length === 0 && arr.splice(key, 1);
-          return result
-        }
-      }
-    }
+      return acc
+    }, []);
   }
-
-  //将包含子节点的数组 转换成非嵌套的数组
-  static parseList(arr, concatenateName = 'children') {
+  /*
+   *  将包含子节点的数组 转换成非嵌套的数组  
+   *  depth: 遍历层数  传入Infinity则可以展开全部
+   *  isList:  默认将展开数组
+   */
+  treeFlat(depth, isList = true, arr = this.treeArr) {
     return arr.reduce((acc, cur) => {
       let o = {}
-      for (const [key, value] of Object.entries(cur)) {
-        if (key != concatenateName) {
+      for (let [key, value] of Object.entries(cur)) {
+        if (key !== this.children) {
           o[key] = value
+        } else if (depth > 1) {
+          isList ? acc.push(...this.treeFlat(depth - 1, isList, value)) :
+            o[this.children] = this.treeFlat(depth - 1, isList, value)
         }
       }
-      return cur[concatenateName] ? acc.concat(o, this.parseList(cur[concatenateName], concatenateName)) : acc
-        .concat(o)
+      return acc.concat(o)
     }, [])
+  }
+  /*
+   *  添加节点
+   *  pIdName: 父id名称   pId: 父pIdName所对应的值  确保id的唯一性
+   *  data 要添加的数据
+   */
+  addTreeNode(pIdName, pId, data, arr = this.treeArr) {
+    for (const [key, value] of Object.entries(arr)) {
+      if (value[pIdName] === pId) {
+        value[this.children] || (value[this.children] = [])
+        value[this.children].push(data)
+        return
+      }
+      value[this.children] && this.addTreeNode(pIdName, pId, data, value[this.children])
+    }
   }
 }

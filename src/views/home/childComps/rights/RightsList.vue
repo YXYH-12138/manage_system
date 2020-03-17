@@ -8,7 +8,7 @@
     <el-card style="margin-top: 15px">
       <!-- 用户信息 -->
       <el-table :data="rightsData" border style="width: 100%;margin-top:15px" stripe>
-        <el-table-column type="index" label="#" width="auto"></el-table-column>
+        <el-table-column type="index" label="#" width="50"></el-table-column>
         <el-table-column prop="authName" label="权限名称" width="auto"></el-table-column>
         <el-table-column prop="path" label="路径" width="auto"></el-table-column>
         <el-table-column prop="level" label="权限等级" width="auto">

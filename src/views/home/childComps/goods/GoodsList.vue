@@ -19,7 +19,7 @@
       </el-row>
       <!-- 商品信息 -->
       <el-table :data="goodsList" border style="width: 100%;margin-top:15px" stripe>
-        <el-table-column type="index" label="#" width="auto"></el-table-column>
+        <el-table-column type="index" label="#" width="50"></el-table-column>
         <el-table-column prop="goods_name" label="商品名称" width="auto"></el-table-column>
         <el-table-column prop="goods_price" label="商品价格(元)" width="65"></el-table-column>
         <el-table-column prop="goods_weight" label="商品重量" width="65"></el-table-column>

@@ -19,7 +19,7 @@
       </el-row>
       <!-- 用户信息 -->
       <el-table :data="users" border style="width: 100%;margin-top:15px" stripe>
-        <el-table-column type="index" label="#" width="auto"></el-table-column>
+        <el-table-column type="index" label="#" width="50"></el-table-column>
         <el-table-column prop="username" label="用户名" width="auto"></el-table-column>
         <el-table-column prop="email" label="邮箱" width="auto"></el-table-column>
         <el-table-column prop="mobile" label="电话" width="auto"></el-table-column>
