@@ -56,19 +56,6 @@ export class TreeData {
         acc.concat(cName ? this.getSomeDataByKeys(keys, isLastNode, cName) : o)
     }, [])
   }
-
-  findNodeData(byKey, byValue, arr = this.treeArr) {
-    for (const [key, value] of arr.entries()) {
-      if (value[byKey] === byValue) {
-        return value
-      }
-      let cItme = value[this.children]
-      if (cItme) {
-        let result = this.findNodeData(byKey, byValue, cItme)
-        if (result) return result
-      }
-    }
-  }
   /*
    * 删除某一节点 并返回被删除的节点
    * byKey: 节点的某一个键
@@ -117,6 +104,19 @@ export class TreeData {
         return
       }
       value[this.children] && this.addTreeNode(pIdName, pId, data, value[this.children])
+    }
+  }
+
+  findNodeData(byKey, byValue, arr = this.treeArr) {
+    for (const [key, value] of arr.entries()) {
+      if (value[byKey] === byValue) {
+        return value
+      }
+      let cItme = value[this.children]
+      if (cItme) {
+        let result = this.findNodeData(byKey, byValue, cItme)
+        if (result) return result
+      }
     }
   }
 }

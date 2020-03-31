@@ -240,7 +240,6 @@ export default {
         // 执行添加的业务逻辑
         // lodash   cloneDeep(obj)
         let form = deepCopy(this.addForm);
-        console.log(form);
         form.goods_cat = form.goods_cat.join(",");
         // 处理动态参数
         this.manyTableData.forEach(item => {

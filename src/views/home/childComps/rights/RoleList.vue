@@ -249,7 +249,7 @@ export default {
       this.currentRole = currentRole;
       this.treeData.treeArr = currentRole.children;
       this.defaultKeys = [];
-      this.defaultKeys.push(...this.treeData.getSomeKeys("id", true));
+      this.defaultKeys.push(...this.treeData.getSomeDataByKeys("id", true));
       this.dialogAllotVisible = true;
     },
     beforeCloseRightsDialog(done) {
