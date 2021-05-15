@@ -4,7 +4,12 @@
       <div class="logo">
         <img src="~assets/img/logo.png" alt />
       </div>
-      <el-form :model="login" :rules="loginRules" ref="loginForm" class="login-form">
+      <el-form
+        :model="login"
+        :rules="loginRules"
+        ref="loginForm"
+        class="login-form"
+      >
         <!-- 用户名 -->
         <el-form-item prop="user">
           <el-input v-model="login.user" ref="loginUserInput">
@@ -19,7 +24,9 @@
         </el-form-item>
         <!-- 登录按钮 -->
         <el-form-item class="login-button">
-          <el-button type="primary" @click="btnLogin('loginForm')">登录</el-button>
+          <el-button type="primary" @click="btnLogin('loginForm')"
+            >登录</el-button
+          >
           <el-button type="info" @click="btnReset('loginForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -36,25 +43,35 @@ export default {
     return {
       login: {
         user: "",
-        pwd: ""
+        pwd: "",
       },
       loginRules: {
         user: [
           { required: true, message: "请输入用户名", trigger: "blur" },
-          { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
+          {
+            min: 3,
+            max: 15,
+            message: "长度在 3 到 15 个字符",
+            trigger: "blur",
+          },
         ],
         pwd: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
-        ]
-      }
+          {
+            min: 3,
+            max: 15,
+            message: "长度在 3 到 15 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
     btnLogin(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          loginRequest(this.login.user, this.login.pwd).then(res => {
+          loginRequest(this.login.user, this.login.pwd).then((res) => {
             if (res.meta.status === 200) {
               this.$message.success(res.meta.msg);
               //保存token
@@ -74,11 +91,11 @@ export default {
     btnReset(formName) {
       this.$refs[formName].resetFields();
       this.$refs.loginUserInput.focus();
-    }
+    },
   },
   mounted() {
     this.$refs.loginUserInput.focus();
-  }
+  },
 };
 </script>
 
